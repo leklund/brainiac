@@ -10,24 +10,22 @@
     (str jukebox-url artwork-url)
     artwork-url))
 
-(defn transform [jukebox-url stream]
-  (let [json (read-json (reader stream))
-        artist (:artist json)
-        album (:album json)
-        title (:title json)
-        requester (:requester json)
-        artwork (-> json :artwork :extra-large (fix-default-artwork jukebox-url))]
+(defn transform [stream]
+  (let [json (first (:track (:recenttracks (read-json (reader stream)))))
+        artist (:#text (:artist json))
+        album (:#text (:album json))
+        title (:name json)
+        artwork (:#text (last (:image json)))]
   { :name "jukebox"
     :artist artist
     :album album
     :title title
-    :requester requester
     :artwork artwork }))
 
-(defn current-track-url [base-url]
-  (format "%s/playlist/current-track" base-url))
+(defn current-track-url [user api-key]
+  (format "http://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=%s&limit=2&format=json&api_key=%s" user api-key))
 
-(defn configure [{:keys [url program-name]}]
+(defn configure [{:keys [program-name user api-key]}]
   (brainiac/simple-http-plugin
-    {:url (current-track-url url) :headers {"Accept" "application/json"}}
-    (partial transform url) program-name))
+    {:url (current-track-url user api-key) }
+    transform program-name))
