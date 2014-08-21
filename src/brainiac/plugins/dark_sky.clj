@@ -7,10 +7,9 @@
 
 (defn format-forecast [forecast]
   {
-    :temp (:currentTemp forecast)
-    :current-summary (:currentSummary forecast)
-    :hour-summary (:hourSummary forecast)
-    :minutes-until-change (:minutesUntilChange forecast)
+    :temp (int (:temperature (:currently forecast)))
+    :current-summary (:summary (:currently forecast))
+    :hour-summary (:summary (:minutely forecast))
   })
 
 (defn transform [stream]
@@ -21,7 +20,7 @@
       :data (format-forecast json))))
 
 (defn url [api-key lat lon]
-  (format "https://api.darkskyapp.com/v1/brief_forecast/%s/%s,%s" api-key lat lon))
+  (format "https://api.forecast.io/forecast/%s/%s,%s" api-key lat lon))
 
 (defn configure [{:keys [api-key lat lon program-name]}]
   (brainiac/simple-http-plugin
