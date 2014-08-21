@@ -43,11 +43,11 @@
      :backup_email backup-email
      :backup_gravatar (email->gravatar backup-email)}))
 
-(defn- request [username password url]
+(defn- request [api-key url]
   {:method "GET" 
    :url-callback url
-   :basic-auth [username password]})
+   :headers {"Authorization" (format "Token token=%s" api-key)}})
 
-(defn requests [organization username password schedule-ids]
+(defn requests [organization api-key schedule-ids]
   (let [urls (map (partial url organization) (string/split schedule-ids #","))]
-    (map (partial request username password) urls)))
+    (map (partial request api-key) urls)))

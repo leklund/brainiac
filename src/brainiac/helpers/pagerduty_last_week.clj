@@ -31,10 +31,10 @@
 (defn- outside-sleeping-hours? [date]
   (not (contains? sleeping-hours (hour-of-day-part date))))
 
-(defn url [organization service-ids]
+(defn url [organization]
   (fn []
     (let [date (.format yyyy-mm-dd-format (days-ago -7))]
-      (format "https://%s.pagerduty.com/api/v1/incidents?service=%s&since=%s&fields=created_on&sort_by=created_on:asc" organization service-ids date))))
+      (format "https://%s.pagerduty.com/api/v1/incidents?since=%s&fields=created_on&sort_by=created_on:asc" organization date))))
 
 (defn- parse-incidents [json-incidents]
   (partition-by date-part (map (fn [incident] (.parse utc-format (:created_on incident))) json-incidents)))
@@ -74,5 +74,5 @@
         parsed-incidents (parse-incidents (:incidents json))]
     {:data (build-data parsed-incidents)}))
 
-(defn request [organization username password service-ids]
-  {:method "GET" :url-callback (url organization service-ids) :basic-auth [username password]})
+(defn request [organization api-key]
+  {:method "GET" :url-callback (url organization) :headers {"Authorization" (format "Token token=%s" api-key)}})

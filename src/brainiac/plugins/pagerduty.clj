@@ -16,9 +16,9 @@
            (pagerduty-schedules/transform schedules-streams)
            {:name "pagerduty"})))
 
-(defn configure [{:keys [program-name organization username password schedule-ids service-ids]}]
-  (let [last-week-request (pagerduty-last-week/request organization username password service-ids)
-        incidents-request (pagerduty-incidents/request organization username password service-ids)
-        schedule-requests (pagerduty-schedules/requests organization username password schedule-ids)
+(defn configure [{:keys [program-name organization api-key schedule-ids]}]
+  (let [last-week-request (pagerduty-last-week/request organization api-key)
+        incidents-request (pagerduty-incidents/request organization api-key)
+        schedule-requests (pagerduty-schedules/requests organization api-key schedule-ids)
         all-requests (flatten [last-week-request incidents-request schedule-requests])]
     (brainiac/multiple-url-http-plugin all-requests transform program-name)))
