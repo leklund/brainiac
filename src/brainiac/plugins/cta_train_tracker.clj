@@ -46,11 +46,11 @@
       :station stop
       :data (vec (take 7 (sort-by :due-in-millis (zf/xml-> xml-zipper :eta parse-eta)))))))
 
-(defn url [map-id api-key]
-  (format "http://lapi.transitchicago.com/api/1.0/ttarrivals.aspx?mapid=%s&key=%s" map-id api-key))
+(defn url [stp-id api-key]
+  (format "http://lapi.transitchicago.com/api/1.0/ttarrivals.aspx?stpid=%s&key=%s" stp-id api-key))
 
-(defn configure [{:keys [program-name map-id api-key]}]
+(defn configure [{:keys [program-name stp-id api-key]}]
   (brainiac/simple-http-plugin
-    {:method "GET" :url (url map-id api-key)}
+    {:method "GET" :url (url stp-id api-key)}
     transform program-name))
 
