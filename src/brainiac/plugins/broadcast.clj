@@ -11,5 +11,5 @@
      :data data))
 
 (defn configure [{:keys [clear-interval program-name]}]
-  (swap! clear * clear-interval 1000))
+  (fn []))
 

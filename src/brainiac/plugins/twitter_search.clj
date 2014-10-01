@@ -7,7 +7,7 @@
 
 (def time-format
   (let [date-format (SimpleDateFormat. "EEE MMM dd HH:mm:ss ZZZZZ yyyy")]
-    (.setTimeZone date-format (TimeZone/getTimeZone "America/Chicago"))
+    (.setTimeZone date-format (TimeZone/getTimeZone "America/New_York"))
     date-format))
 
 (defn now [] (System/currentTimeMillis))
