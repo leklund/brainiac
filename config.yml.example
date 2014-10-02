@@ -20,6 +20,11 @@ devs:
     api-key: "MW9S-E7SL-26DU-VV8V"
     station-id: "powl"
 
+  wmata-train-tracker:
+    order: 3
+    api-key: '1234abcdef'
+    station: 'C01,A01'
+
   clock:
     interval: 30
     order: 4

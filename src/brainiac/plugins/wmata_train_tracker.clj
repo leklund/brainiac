@@ -17,11 +17,20 @@
     "DUE"
     (str (int (/ due-in-millis (* 60 1000))) " MIN")))
 
+(def destination-translations
+  {"OR" "Orange"
+   "GR" "Green"
+   "BL" "Blue"
+   "YL" "Yellow"
+   "RD" "Red"
+   "SV" "Silver"})
+
 (defn parse-wmata [node]
   {
     :due (:Min node)
     :dest (:DestinationName node)
     :cars (:Car node)
+    :line (get destination-translations (:Line node))
    })
 
 (defn transform [stream]
@@ -29,8 +38,8 @@
         trains (:Trains json)]
   (assoc {}
         :name "wmata-train-tracker"
-        :title "Van Ness Trains"
-        :data (map parse-wmata (take 5 trains)))))
+        :station (:LocationName (nth trains 0))
+        :data (map parse-wmata (take 7 trains)))))
 
 (defn url [station api-key]
   (format "http://api.wmata.com/StationPrediction.svc/json/GetPrediction/%s?api_key=%s" station api-key))

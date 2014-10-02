@@ -788,3 +788,47 @@ ul#kudotron p.message_body {
   overflow: hidden;
 }
 
+/* WMATA Train Tracker styles */
+
+div#plugins #wmata-train-tracker ul {
+  list-style-type: none;
+}
+
+div#plugins #wmata-train-tracker ul li {
+  border-radius: 5px;
+  margin: 12px 0;
+  padding: 3px 10px;
+  font-size: 30px;
+  font-family: "Helvetica Medium", "Helvetica";
+  font-weight: 900;
+  box-shadow: 5px 5px 3px #222;
+}
+
+div#plugins #wmata-train-tracker ul li span.time {
+  float: right;
+}
+
+div#plugins #wmata-train-tracker ul li.Silver {
+  background: rgb(120,120,120);
+}
+
+div#plugins #wmata-train-tracker ul li.Yellow {
+  background: rgb(255, 204, 0);
+}
+
+div#plugins #wmata-train-tracker ul li.Blue {
+  background: rgb(0, 161, 222);
+}
+
+div#plugins #wmata-train-tracker ul li.Green {
+  background: rgb(0, 155, 58);
+}
+
+div#plugins #wmata-train-tracker ul li.Orange {
+  background: rgb(249, 70, 28);
+}
+div#plugins #wmata-train-tracker ul li.Red {
+  background: rgb(192, 12, 48);
+}
+
+
