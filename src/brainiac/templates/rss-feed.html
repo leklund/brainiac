@@ -1,1 +1,10 @@
-<h3>{{title}}</h3> {{#data}}<h5>{{title}}<article>{{&content}}</article>{{/data}}
+<div class="rssticker" data-widget="rssticker">
+  <ul class="rssticker">{{#data}}
+    <li class="ticker-item">
+      <div class="rss-info">
+        <div class="rss-title">{{title}}</div>
+      </div>
+    {{&content}}
+    </li>
+  {{/data}}</ul>
+</div>
