@@ -37,6 +37,7 @@
      (include-js "/js/debug.js")
      (include-js "/js/flip.js")
      (include-js "/js/slideshow.js")
+     (include-js "/js/instagram-tag.js")
      (include-css "/css/main.css")
      (include-css "/css/slideshow.css")]
     [:body.nocursor
