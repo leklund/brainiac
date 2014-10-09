@@ -3,7 +3,6 @@ var Slideshow = (function () {
 
   return {
     initialize: function () {
-      console.log("slideshow init");
       template = $('#slideshow-template');
       Updater.addListener("slideshow", this.render);
     },
